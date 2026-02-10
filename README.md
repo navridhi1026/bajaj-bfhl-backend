@@ -1,148 +1,172 @@
-# BFHL Backend Assessment - Bajaj
+# Bajaj Finserv Health Challenge - Backend API
 
-Simple REST API backend with AI integration for Bajaj company assessment.
+**Official Email**: navridhi2080.be23@chitkara.edu.in  
+**GitHub**: [navridhi1026/bajaj-bfhl-backend](https://github.com/navridhi1026/bajaj-bfhl-backend)  
+**Live URL**: https://bajaj-bfhl-backend.onrender.com
 
-## 🚀 Features
+---
 
-- ✅ RESTful API endpoints
-- ✅ Data processing (numbers/alphabets separation)
-- ✅ Highest lowercase alphabet detection
-- ✅ **Google Gemini AI integration**
-- ✅ CORS enabled
-- ✅ Production ready
-- ✅ Easy deployment
+## 🚀 API Endpoints
 
-## 📋 API Endpoints
+### 1. **GET** `/health`
+Health check endpoint to verify server status.
 
-### 1. Health Check
-```
-GET /health
-```
 **Response:**
 ```json
 {
-  "status": "OK",
-  "message": "Server is running",
-  "timestamp": "2026-02-10T10:30:00.000Z"
+  "is_success": true,
+  "official_email": "navridhi2080.be23@chitkara.edu.in"
 }
 ```
 
-### 2. BFHL Data Processing
-```
-POST /bfhl
-```
-**Request Body:**
-```json
-{
-  "data": ["A", "C", "z", "1", "5", "9"]
-}
+### 2. **POST** `/bfhl`
+Main endpoint supporting 5 operations: `fibonacci`, `prime`, `lcm`, `hcf`, `AI`
+
+**Request Format**: Send exactly **ONE** key in the request body.
+
+---
+
+## 📋 Supported Operations
+
+### **1. Fibonacci Series**
+Generate fibonacci series up to n terms.
+
+**Request:**
+```bash
+curl -X POST https://bajaj-bfhl-backend.onrender.com/bfhl \
+  -H "Content-Type: application/json" \
+  -d '{"fibonacci": 10}'
 ```
 
 **Response:**
 ```json
 {
   "is_success": true,
-  "user_id": "kunal_anand_10022003",
-  "email": "kunal.anand2021@vitstudent.ac.in",
-  "roll_number": "21BCE0001",
-  "numbers": ["1", "5", "9"],
-  "alphabets": ["A", "C", "z"],
-  "highest_lowercase_alphabet": ["z"]
+  "official_email": "navridhi2080.be23@chitkara.edu.in",
+  "data": [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 }
 ```
 
-## 🚀 Local Setup
+---
 
-1. **Install dependencies:**
+### **2. Prime Number Filter**
+Filter prime numbers from an array.
+
+**Request:**
 ```bash
-npm install
-```
-
-2. **Start development server:**
-```bash
-npm run dev
-```
-
-3. **Start production server:**
-```bash
-npm start
-```
-
-Server will run on `http://localhost:5000`
-
-## 🧪 Testing
-
-### Using cURL
-
-**Health Check:**
-```bash
-curl http://localhost:5000/health
-```
-
-**BFHL API:**
-```bash
-curl -X POST http://localhost:5000/bfhl \
+curl -X POST https://bajaj-bfhl-backend.onrender.com/bfhl \
   -H "Content-Type: application/json" \
-  -d '{"data": ["M", "1", "334", "4", "B", "Z", "a"]}'
+  -d '{"prime": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}'
 ```
 
-### Using Postman
-
-1. Import the `postman_collection.json` file
-2. Test both endpoints
-3. Verify responses
-
-## 📦 Deployment
-
-### Deploy to Render
-
-1. Push code to GitHub
-2. Go to [render.com](https://render.com)
-3. Create new Web Service
-4. Connect your repository
-5. Build Command: `npm install`
-6. Start Command: `npm start`
-7. Deploy!
-
-### Deploy to Railway
-
-1. Push code to GitHub
-2. Go to [railway.app](https://railway.app)
-3. New Project → Deploy from GitHub
-4. Select repository
-5. Deploy automatically
-
-## 📁 Project Structure
-
-```
-bajaj-bfhl-backend/
-├── index.js              # Main server file
-├── package.json          # Dependencies
-├── .env                  # Environment variables
-├── .gitignore           # Git ignore rules
-├── README.md            # Documentation
-└── postman_collection.json  # API testing collection
+**Response:**
+```json
+{
+  "is_success": true,
+  "official_email": "navridhi2080.be23@chitkara.edu.in",
+  "data": [2, 3, 5, 7]
+}
 ```
 
-## ✅ Features
+---
 
-- ✅ Health check endpoint
-- ✅ Data processing (numbers, alphabets separation)
-- ✅ Highest lowercase alphabet detection
-- ✅ Proper error handling
-- ✅ CORS enabled
-- ✅ Production ready
-- ✅ Easy deployment
+### **3. LCM Calculation**
+Calculate Least Common Multiple of numbers.
 
-## 👤 Developer Info
+**Request:**
+```bash
+curl -X POST https://bajaj-bfhl-backend.onrender.com/bfhl \
+  -H "Content-Type: application/json" \
+  -d '{"lcm": [12, 15, 20]}'
+```
 
-- **Name:** Kunal Anand
-- **Email:** kunal.anand2021@vitstudent.ac.in
-- **Roll Number:** 21BCE0001
+**Response:**
+```json
+{
+  "is_success": true,
+  "official_email": "navridhi2080.be23@chitkara.edu.in",
+  "data": 60
+}
+```
 
-## 📝 Notes
+---
 
-- Update `USER_INFO` in `index.js` with your actual details
-- Server runs on port 5000 by default
-- All responses are in JSON format
-- CORS is enabled for all origins
+### **4. HCF Calculation**
+Calculate Highest Common Factor (GCD) of numbers.
+
+**Request:**
+```bash
+curl -X POST https://bajaj-bfhl-backend.onrender.com/bfhl \
+  -H "Content-Type: application/json" \
+  -d '{"hcf": [24, 36, 48]}'
+```
+
+**Response:**
+```json
+{
+  "is_success": true,
+  "official_email": "navridhi2080.be23@chitkara.edu.in",
+  "data": 12
+}
+```
+
+---
+
+### **5. AI Question Answering**
+Answer questions using Google Gemini AI (single-word response).
+
+**Request:**
+```bash
+curl -X POST https://bajaj-bfhl-backend.onrender.com/bfhl \
+  -H "Content-Type: application/json" \
+  -d '{"AI": "What is the capital of France?"}'
+```
+
+**Response:**
+```json
+{
+  "is_success": true,
+  "official_email": "navridhi2080.be23@chitkara.edu.in",
+  "data": "Paris"
+}
+```
+
+---
+
+## 🛠️ Tech Stack
+
+- **Runtime**: Node.js (ES Modules)
+- **Framework**: Express.js
+- **AI Integration**: Google Gemini 2.0 Flash
+- **Deployment**: Render (Free Tier)
+- **Version Control**: Git + GitHub
+
+---
+
+## 🚀 Local Development
+
+```bash
+# Clone repository
+git clone https://github.com/navridhi1026/bajaj-bfhl-backend.git
+cd bajaj-bfhl-backend
+
+# Install dependencies
+npm install
+
+# Start server
+npm start
+
+# Server runs on http://localhost:5000
+```
+
+---
+
+## 📧 Contact
+
+**Email**: navridhi2080.be23@chitkara.edu.in  
+**GitHub**: [@navridhi1026](https://github.com/navridhi1026)
+
+---
+
+**Assessment Project for Bajaj Finserv**  
+*Built with ❤️ using Node.js, Express & Google Gemini AI*
