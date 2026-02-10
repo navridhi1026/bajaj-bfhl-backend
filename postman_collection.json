@@ -1,0 +1,150 @@
+{
+  "info": {
+    "name": "Bajaj BFHL Backend API",
+    "description": "API Collection for Bajaj BFHL Assessment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["health"]
+        },
+        "description": "Check if server is running"
+      },
+      "response": []
+    },
+    {
+      "name": "BFHL - Simple Test",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"data\": [\"A\", \"C\", \"z\", \"1\", \"5\", \"9\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/bfhl",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["bfhl"]
+        },
+        "description": "Simple test with mixed data"
+      },
+      "response": []
+    },
+    {
+      "name": "BFHL - Complex Test",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"data\": [\"M\", \"1\", \"334\", \"4\", \"B\", \"Z\", \"a\", \"c\", \"99\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/bfhl",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["bfhl"]
+        },
+        "description": "Complex test with more data"
+      },
+      "response": []
+    },
+    {
+      "name": "BFHL - Only Numbers",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"data\": [\"1\", \"2\", \"3\", \"100\", \"999\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/bfhl",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["bfhl"]
+        },
+        "description": "Test with only numbers"
+      },
+      "response": []
+    },
+    {
+      "name": "BFHL - Only Alphabets",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"data\": [\"a\", \"B\", \"c\", \"Z\", \"m\", \"X\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/bfhl",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["bfhl"]
+        },
+        "description": "Test with only alphabets"
+      },
+      "response": []
+    },
+    {
+      "name": "BFHL - Error Test (Invalid Input)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"data\": \"invalid\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/bfhl",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["bfhl"]
+        },
+        "description": "Test error handling with invalid input"
+      },
+      "response": []
+    }
+  ]
+}
