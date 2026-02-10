@@ -1,6 +1,16 @@
 # BFHL Backend Assessment - Bajaj
 
-Simple REST API backend for Bajaj company assessment.
+Simple REST API backend with AI integration for Bajaj company assessment.
+
+## 🚀 Features
+
+- ✅ RESTful API endpoints
+- ✅ Data processing (numbers/alphabets separation)
+- ✅ Highest lowercase alphabet detection
+- ✅ **Google Gemini AI integration**
+- ✅ CORS enabled
+- ✅ Production ready
+- ✅ Easy deployment
 
 ## 📋 API Endpoints
 

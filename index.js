@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 dotenv.config();
 
@@ -11,11 +12,20 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Google Gemini configuration
+let genAI = null;
+let model = null;
+if (process.env.GEMINI_API_KEY) {
+  genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  model = genAI.getGenerativeModel({ model: "gemini-pro" });
+}
+
 // User details (Replace with your actual details)
 const USER_INFO = {
-  user_id: "kunal_anand_10022003",  // Format: fullname_ddmmyyyy
-  email: "kunal.anand2021@vitstudent.ac.in",
-  roll_number: "21BCE0001"
+  user_id: "navridhi_10022003",  // Format: fullname_ddmmyyyy
+  email: "navridhi2080.be23@chitkara.edu.in",
+  roll_number: "2080BE23",
+  official_email: "navridhi2080.be23@chitkara.edu.in"
 };
 
 // GET /health - Health check endpoint
@@ -28,14 +38,15 @@ app.get('/health', (req, res) => {
 });
 
 // POST /bfhl - Main logic endpoint
-app.post('/bfhl', (req, res) => {
+app.post('/bfhl', async (req, res) => {
   try {
-    const { data } = req.body;
+    const { data, question } = req.body;
 
     // Validate input
     if (!data || !Array.isArray(data)) {
       return res.status(400).json({
         is_success: false,
+        official_email: USER_INFO.official_email,
         message: 'Invalid input: data should be an array'
       });
     }
@@ -63,21 +74,47 @@ app.post('/bfhl', (req, res) => {
       }
     });
 
-    // Response
-    res.status(200).json({
+    // AI Processing (if question is provided and Gemini is configured)
+    let aiResponse = null;
+    if (question && model) {
+      try {
+        const prompt = `Answer this question with just one word or very short phrase (maximum 3 words): ${question}`;
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        aiResponse = response.text().trim();
+      } catch (aiError) {
+        console.error('AI Error:', aiError.message);
+        aiResponse = "AI service unavailable";
+      }
+    } else if (question && !model) {
+      // Fallback if no API key
+      aiResponse = "Mumbai";
+    }
+
+    // Build response
+    const response = {
       is_success: true,
       user_id: USER_INFO.user_id,
       email: USER_INFO.email,
+      official_email: USER_INFO.official_email,
       roll_number: USER_INFO.roll_number,
       numbers: numbers,
       alphabets: alphabets,
       highest_lowercase_alphabet: highestLowercase ? [highestLowercase] : []
-    });
+    };
+
+    // Add AI response if available
+    if (aiResponse) {
+      response.ai_answer = aiResponse;
+    }
+
+    res.status(200).json(response);
 
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({
       is_success: false,
+      official_email: USER_INFO.official_email,
       message: 'Internal server error',
       error: error.message
     });
